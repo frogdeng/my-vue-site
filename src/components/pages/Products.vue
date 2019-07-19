@@ -155,8 +155,7 @@
               </button>
             </div>
             <div class="modal-body">
-              刪除刪除刪除刪除
-              <!-- 是否刪除 <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。 -->
+              是否刪除 <strong class="text-danger">{{ tempProducts.title }}</strong> 商品(刪除後將無法恢復)。
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
@@ -204,22 +203,6 @@ export default {
       }
       $('#productModal').modal('show')
     },
-
-    delProductModal(item){
-      $('#delProductModal').modal("show");
-      this.tempProducts = Object.assign({}, item);
-    },
-
-    delProduct(){
-      const vm = this;
-      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProducts.id}`;
-      this.$http.delete(api).then((response)=>{
-        if(response.data.success){
-          $('#delProductModal').modal('hide');
-          vm.getProducts();
-        }
-      })
-    },
     updateProduct(){
       let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
       let httpMethod = 'post';
@@ -240,13 +223,29 @@ export default {
           console.log('新增失敗');
         }
       });
-    }
-  },
+    },
 
+    // delete item
+    delProductModal(item){
+      $('#delProductModal').modal("show");
+      this.tempProducts = Object.assign({}, item);
+      // console.log("Products" + this.Products)
+      console.log("tempProducts" + this.tempProducts)
+    },
+    delProduct(){
+      const vm = this;
+      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProducts.id}`;
+      this.$http.delete(api).then((response)=>{
+        if(response.data.success){
+          $('#delProductModal').modal('hide');
+          vm.getProducts();
+        }
+      })
+    },
+  },
   created() {
     this.getProducts();
   },
-
  
 }
 </script>
