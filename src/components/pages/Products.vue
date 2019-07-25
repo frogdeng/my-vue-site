@@ -265,7 +265,7 @@ export default {
         }
       }).then((response)=>{
         console.log(response.data);
-        vm.status.fileUploading = false
+        vm.status.fileUploading = 
         if(response.data.success){
           // vm.tempProducts.imageUrl = response.data.imageUrl
           vm.$set(vm.tempProducts, 'imageUrl', response.data.imageUrl)
